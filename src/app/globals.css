@@ -1,26 +1,113 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ink: #110a2b;
+  --surface: #1b1240;
+  --line: #35266b;
+  --foreground: #f4eefb;
+  --muted: #b4a8dc;
+  --pumpkin: #ff7a1a;
+  --pumpkin-hot: #ffb04a;
+  --violet: #8b5cf6;
+  --violet-soft: #c4b0fb;
+  --slime: #b6f24a;
 }
 
 @theme inline {
-  --color-background: var(--background);
+  --color-ink: var(--ink);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-pumpkin: var(--pumpkin);
+  --color-pumpkin-hot: var(--pumpkin-hot);
+  --color-violet: var(--violet);
+  --color-violet-soft: var(--violet-soft);
+  --color-slime: var(--slime);
+  --font-sans: var(--font-body);
+  --font-tag: var(--font-fraunces), Georgia, serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
+  background: var(--ink);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), system-ui, sans-serif;
 }
+
+.font-tag {
+  font-weight: 400;
+  font-synthesis: none;
+  letter-spacing: 0.02em;
+}
+
+/* hero sky: layered glows + stars */
+.sky {
+  background:
+    radial-gradient(60rem 32rem at 80% 8%, rgb(139 92 246 / 0.32), transparent 60%),
+    radial-gradient(50rem 30rem at 10% 30%, rgb(255 122 26 / 0.08), transparent 60%),
+    radial-gradient(80rem 22rem at 50% 100%, rgb(255 122 26 / 0.22), transparent 70%),
+    linear-gradient(180deg, #1a1040 0%, #110a2b 100%);
+}
+.hero-night {
+  background:
+    radial-gradient(70rem 40rem at 28% 30%, rgb(139 92 246 / 0.42), transparent 62%),
+    radial-gradient(50rem 30rem at 85% 70%, rgb(91 55 190 / 0.5), transparent 60%),
+    linear-gradient(160deg, #2a1a66 0%, #1a1046 45%, #0f0a2a 100%);
+}
+.stars {
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 18%, #fff, transparent),
+    radial-gradient(1px 1px at 28% 60%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 44% 12%, #fff, transparent),
+    radial-gradient(1px 1px at 63% 38%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 78% 70%, #fff, transparent),
+    radial-gradient(1px 1px at 90% 22%, #fff, transparent),
+    radial-gradient(1px 1px at 5% 75%, #fff, transparent),
+    radial-gradient(1px 1px at 52% 82%, #fff, transparent);
+  opacity: 0.55;
+}
+.moon {
+  background: radial-gradient(circle at 35% 35%, #fff6d6, #ffd98a 60%, #f0b35a);
+  box-shadow: 0 0 80px 20px rgb(255 217 138 / 0.28), 0 0 220px 80px rgb(255 217 138 / 0.12);
+}
+.glow-text {
+  background: linear-gradient(180deg, #ffd27a 0%, #ff7a1a 60%, #e5550a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 6px 30px rgb(255 122 26 / 0.45));
+}
+
+@keyframes float { 50% { transform: translateY(-14px); } }
+@keyframes drift { from { transform: translateX(-12vw); } to { transform: translateX(112vw); } }
+@keyframes flap { 50% { transform: scaleY(0.55); } }
+@keyframes dangle { 50% { transform: translateY(10px); } }
+@keyframes marquee { to { transform: translateX(-50%); } }
+@keyframes flicker { 0%,100% { filter: brightness(1); } 45% { filter: brightness(1.15); } 50% { filter: brightness(0.9); } }
+
+.float { animation: float 6s ease-in-out infinite; }
+.drift { animation: drift 28s linear infinite; }
+.flap { animation: flap 0.35s ease-in-out infinite; }
+.dangle { animation: dangle 4s ease-in-out infinite; }
+.marquee { animation: marquee 30s linear infinite; }
+.flicker { animation: flicker 3s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .float, .drift, .flap, .dangle, .marquee, .flicker { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+details > summary { list-style: none; }
+details > summary::-webkit-details-marker { display: none; }
+details[open] .plus { transform: rotate(45deg); }
+
+:focus-visible { outline: 2px solid var(--pumpkin-hot); outline-offset: 3px; border-radius: 6px; }
+
+@keyframes swing { 0%, 100% { transform: rotate(4deg); } 50% { transform: rotate(-4deg); } }
+.swing { animation: swing 5s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .swing { animation: none; } }
